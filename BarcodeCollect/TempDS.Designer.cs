@@ -224,6 +224,8 @@ namespace BarcodeCollect {
             
             private global::System.Data.DataColumn columnType;
             
+            private global::System.Data.DataColumn columnItemCode;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public TempDataTable() {
                 this.TableName = "Temp";
@@ -270,6 +272,13 @@ namespace BarcodeCollect {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn ItemCodeColumn {
+                get {
+                    return this.columnItemCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public int Count {
                 get {
                     return this.Rows.Count;
@@ -297,12 +306,13 @@ namespace BarcodeCollect {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public TempRow AddTempRow(int LineNum, string Barcode, string Type) {
+            public TempRow AddTempRow(int LineNum, string Barcode, string Type, string ItemCode) {
                 TempRow rowTempRow = ((TempRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         LineNum,
                         Barcode,
-                        Type};
+                        Type,
+                        ItemCode};
                 rowTempRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowTempRow);
                 return rowTempRow;
@@ -330,6 +340,7 @@ namespace BarcodeCollect {
                 this.columnLineNum = base.Columns["LineNum"];
                 this.columnBarcode = base.Columns["Barcode"];
                 this.columnType = base.Columns["Type"];
+                this.columnItemCode = base.Columns["ItemCode"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -340,6 +351,8 @@ namespace BarcodeCollect {
                 base.Columns.Add(this.columnBarcode);
                 this.columnType = new global::System.Data.DataColumn("Type", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnType);
+                this.columnItemCode = new global::System.Data.DataColumn("ItemCode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnItemCode);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -516,6 +529,21 @@ namespace BarcodeCollect {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string ItemCode {
+                get {
+                    try {
+                        return ((string)(this[this.tableTemp.ItemCodeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("表“Temp”中列“ItemCode”的值为 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableTemp.ItemCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsLineNumNull() {
                 return this.IsNull(this.tableTemp.LineNumColumn);
             }
@@ -543,6 +571,16 @@ namespace BarcodeCollect {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetTypeNull() {
                 this[this.tableTemp.TypeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsItemCodeNull() {
+                return this.IsNull(this.tableTemp.ItemCodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetItemCodeNull() {
+                this[this.tableTemp.ItemCodeColumn] = global::System.Convert.DBNull;
             }
         }
         

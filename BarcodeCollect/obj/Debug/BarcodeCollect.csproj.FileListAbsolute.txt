@@ -18,3 +18,13 @@ D:\DEV\NET\VS2008\BarcodeCollect\BarcodeCollect\obj\Debug\BarcodeCollect.Propert
 D:\DEV\NET\VS2008\BarcodeCollect\BarcodeCollect\obj\Debug\BarcodeCollect.csproj.GenerateResource.Cache
 D:\DEV\NET\VS2008\BarcodeCollect\BarcodeCollect\obj\Debug\BarcodeCollect.exe
 D:\DEV\NET\VS2008\BarcodeCollect\BarcodeCollect\obj\Debug\BarcodeCollect.pdb
+D:\DEV\NET\VS2008\idata80_barcodecollect\BarcodeCollect\obj\Debug\ResolveAssemblyReference.cache
+D:\DEV\NET\VS2008\idata80_barcodecollect\BarcodeCollect\obj\Debug\BarcodeCollect.BarcodeCollect.resources
+D:\DEV\NET\VS2008\idata80_barcodecollect\BarcodeCollect\obj\Debug\BarcodeCollect.BaseForm.resources
+D:\DEV\NET\VS2008\idata80_barcodecollect\BarcodeCollect\obj\Debug\BarcodeCollect.Properties.Resources.resources
+D:\DEV\NET\VS2008\idata80_barcodecollect\BarcodeCollect\obj\Debug\BarcodeCollect.csproj.GenerateResource.Cache
+D:\DEV\NET\VS2008\idata80_barcodecollect\BarcodeCollect\bin\Debug\ItemType.txt
+D:\DEV\NET\VS2008\idata80_barcodecollect\BarcodeCollect\bin\Debug\BarcodeCollect.exe
+D:\DEV\NET\VS2008\idata80_barcodecollect\BarcodeCollect\bin\Debug\BarcodeCollect.pdb
+D:\DEV\NET\VS2008\idata80_barcodecollect\BarcodeCollect\obj\Debug\BarcodeCollect.exe
+D:\DEV\NET\VS2008\idata80_barcodecollect\BarcodeCollect\obj\Debug\BarcodeCollect.pdb

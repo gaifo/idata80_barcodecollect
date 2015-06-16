@@ -15,12 +15,14 @@ namespace BarcodeCollect
         {
             
             // 初始化 iScanDevLib.dll
+
             if (!DLL.Startup())
             {
                 MessageBox.Show("Fail to startup iScanDevLib.dll", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                 DLL.Shutdown();
                 return;
             }
+            
             try
             {
                 Application.Run(new BarcodeCollect());

@@ -47,8 +47,8 @@ namespace BarcodeCollect
             ts.GridColumnStyles.Add(cs);
 
             cs = new DataGridTextBoxColumn();
-            cs.MappingName = "Barcode";
-            cs.HeaderText = "条码";
+            cs.MappingName = "ItemCode";
+            cs.HeaderText = "存货编码";
             cs.Width = 130;
             ts.GridColumnStyles.Add(cs);
 
@@ -58,39 +58,45 @@ namespace BarcodeCollect
             cs.Width = 130;
             ts.GridColumnStyles.Add(cs);
 
+            cs = new DataGridTextBoxColumn();
+            cs.MappingName = "Barcode";
+            cs.HeaderText = "条码";
+            cs.Width = 130;
+            ts.GridColumnStyles.Add(cs);
+
             this.dataGrid1.TableStyles.Clear();
             this.dataGrid1.TableStyles.Add(ts);
         }
-
+        
         // 重载 基类BaseForm的这个方法
-        public override void OnBarCodeNotify(byte[] BarCodeData, int nLength)
+        public override void OnBarCodeNotify(byte[] barcodedata, int nlength)
         {
             /*
-             * NOTICE:
+             * notice:
              * 
-             * 1. BarCodeData 是条形码扫描设备解码成功后发送过来的原始数据
+             * 1. barcodedata 是条形码扫描设备解码成功后发送过来的原始数据
              * 
-             * 2. 假如在获得条形码后需要很长时间处理，可以先暂时禁用扫描设备 EnableBarCode(false)
-             *     以免客户多次扫描，处理完了之后 EnableBarCode(true) 重新允许扫描。
+             * 2. 假如在获得条形码后需要很长时间处理，可以先暂时禁用扫描设备 enablebarcode(false)
+             *     以免客户多次扫描，处理完了之后 enablebarcode(true) 重新允许扫描。
              */
             EnableBarCode(false);
 
             try
             {
-                string sBarCode = Encoding.UTF8.GetString(BarCodeData, 0, nLength); // Encoding.ASCII.GetString(BarCodeData, 0, nLength);
+                string sBarcode = Encoding.UTF8.GetString(barcodedata, 0, nlength); // encoding.ascii.getstring(barcodedata, 0, nlength);
 
                 // 假如需要加上 自定义的前缀 或者 自定义的后缀
                 // 建议把这两个参数设计为可以通过参数设置形式让客户在运行时改变。
-                // string BarCodePrefix = ""; 
-                // string BarCodePostfix = "";
-                // string BarCodePerfect = BarCodePrefix + BarCode + BarCodePostfix;
+                // string barcodeprefix = ""; 
+                // string barcodepostfix = "";
+                // string barcodeperfect = barcodeprefix + barcode + barcodepostfix;
 
                 // 这里只是简单把条码显示到界面上而已
-                //this.tboxBarCode.Text = sBarCode;
-                //this.lblBarCodeLength.Text = "Len = " + nLength.ToString() + ", " + GetCurrentBarCodeType().ToString();
+                //this.tboxbarcode.text = sbarcode;
+                //this.lblbarcodelength.text = "len = " + nlength.tostring() + ", " + getcurrentbarcodetype().tostring();
 
 
-                scanResult(sBarCode);
+                scanResult(sBarcode);
             }
             catch (System.Exception ex)
             {
@@ -132,11 +138,15 @@ namespace BarcodeCollect
                     addrow.Barcode = barcode;
                     try
                     {
-                        addrow.Type = TYPES[barcode.Substring(0, 6)];
+                        string s = TYPES[barcode.Substring(0, 6)];
+                        string[] d = s.Split('_');
+                        addrow.ItemCode = d[0];
+                        addrow.Type = d[1];
                     }
                     catch (KeyNotFoundException ex)
                     {
                         addrow.Type = "";
+                        addrow.ItemCode = "";
                     }
 
                     this.tempDS.Temp.AddTempRow(addrow);
@@ -152,7 +162,7 @@ namespace BarcodeCollect
         private void form_Load(object sender, EventArgs e)
         {
             // 打开BarCode扫描设备
-            
+
             if (!OpenBarCode())
             {
                 int ErrCode = Marshal.GetLastWin32Error();
@@ -172,9 +182,21 @@ namespace BarcodeCollect
         private void menuItem1_Click(object sender, EventArgs e)
         {
             //新建采集单，如Form上有数据，则清除
-            linenum = 0;
-            this.textBox1.Text = "";
-            this.tempDS.Clear();
+            //linenum = 0;
+            //this.textBox1.Text = "";
+            //this.tempDS.Clear();
+
+            linenum++;
+
+            TempDS.TempRow addrow = tempDS.Temp.NewTempRow();
+
+            addrow.LineNum = linenum;
+            addrow.Barcode = "12345678";
+            string s = "ABCDEFGHKI_abcdefghi";
+            string[] d = s.Split('_');
+            addrow.ItemCode = d[0];
+            addrow.Type = d[1];
+            this.tempDS.Temp.AddTempRow(addrow);
         }
 
         private void menuItem2_Click(object sender, EventArgs e)
@@ -199,15 +221,15 @@ namespace BarcodeCollect
 
             
 
-            string filename = this.textBox1.Text.Trim() + ".csv";
+            string filename = this.textBox1.Text.Trim() + ".xml";
             Dictionary<String, String> ds = new Dictionary<string, string>();
 
             foreach (TempDS.TempRow row in tempDS.Temp.Rows)
             {
-                ds.Add(row.Barcode, row.Type);
+                ds.Add(row.Barcode, row.Type+"_"+row.ItemCode);
             }
 
-            int ret = FileAct.SaveToFile(dirPath, filename, ds);
+            int ret = FileAct.SaveToXML(dirPath, filename, ds);
 
             if (ret == -1)
             {
