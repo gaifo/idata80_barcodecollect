@@ -72,8 +72,8 @@ namespace BarcodeCollect
 
                 XmlElement line = doc.CreateElement("行");
 
-                line.SetAttribute("存货编码", s[0]);
-                line.SetAttribute("存货名称", s[1]);
+                line.SetAttribute("存货编码", s[1]);
+                line.SetAttribute("存货名称", s[0]);
                 line.SetAttribute("序列号", kvp.Key);
                 line.SetAttribute("备注", "");
                 line.SetAttribute("序列号属性1", "");

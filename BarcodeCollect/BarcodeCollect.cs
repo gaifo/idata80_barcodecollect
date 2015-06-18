@@ -182,10 +182,10 @@ namespace BarcodeCollect
         private void menuItem1_Click(object sender, EventArgs e)
         {
             //新建采集单，如Form上有数据，则清除
-            //linenum = 0;
-            //this.textBox1.Text = "";
-            //this.tempDS.Clear();
-
+            linenum = 0;
+            this.textBox1.Text = "";
+            this.tempDS.Clear();
+            /*
             linenum++;
 
             TempDS.TempRow addrow = tempDS.Temp.NewTempRow();
@@ -197,6 +197,7 @@ namespace BarcodeCollect
             addrow.ItemCode = d[0];
             addrow.Type = d[1];
             this.tempDS.Temp.AddTempRow(addrow);
+             * */
         }
 
         private void menuItem2_Click(object sender, EventArgs e)
